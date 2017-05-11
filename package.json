@@ -20,6 +20,7 @@
     "eslint-plugin-react": "7.0.0"
   },
   "dependencies": {
+    "eslint": "3.19.0",
     "react-native": "0.44.0",
     "realm": "1.2.0",
     "sqlite3": "3.1.8"

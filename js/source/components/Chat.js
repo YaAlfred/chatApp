@@ -1,7 +1,7 @@
 var React = require('react');
 
 import { ChatList, ChatBox } from './ChatBox';
-import MessageStore from './MessageStoreSQL';
+import MessageStore from './MessageStore';
 
 var Chat = React.createClass({
     getInitialState: function() {
