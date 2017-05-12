@@ -2,6 +2,10 @@
     margin: 0 auto;
     width: 400px;
 }
+#app h1{
+    font-family: 'Days One', sans-serif;
+    font-size: 1.6em;
+}
 .Logo{
     background:url(img/logo.png) no-repeat;
     width:200px;
