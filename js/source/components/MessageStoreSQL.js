@@ -11,13 +11,15 @@ module.exports = {
             url: "/phpCRUID/list.php",
             type: 'POST',
             dataType:'text',
-            success: function(data) {
-                //console.log('get list' + data);
-                if(data.length > 0){
-                    messages = $.parseJSON(data);
-                    return messages.concat();
-                }
-           }
+            async: false,
+        })
+        .done(function() {
+            if(data.length > 0){
+                messages = $.parseJSON(data);
+            }
+        })
+        .fail(function() {
+            console.log("error");
         });
         return messages.concat();
     },
