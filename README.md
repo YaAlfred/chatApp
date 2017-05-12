@@ -9,3 +9,5 @@ babel --presets react ./js/source -d js/build
 browserify ./js/build/app.js -o bundle.js
 
 ![alt tag](https://yadi.sk/d/y-_VddZx3J5PgF)
+
+test working example here: http://ct96438.tmweb.ru/
