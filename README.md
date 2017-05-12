@@ -8,4 +8,4 @@ npm update
 babel --presets react ./js/source -d js/build
 browserify ./js/build/app.js -o bundle.js
 
-![image](https://yadi.sk/d/y-_VddZx3J5PgF)
+![alt tag](https://yadi.sk/d/y-_VddZx3J5PgF)
