@@ -4,28 +4,23 @@ var EventEmitter = require('events').EventEmitter;
 
 var emitter = new EventEmitter();
 
+var messages = [];
+
 module.exports = {
     getMessages: function getMessages() {
-        var promice = new Promise(function (resolve, reject) {
-            $.ajax({
-                url: "/phpCRUID/list.php",
-                type: 'POST',
-                dataType: 'text',
-                async: false
-            }).done(function (data) {
-                if (data.length > 0) {
-                    var messages = $.parseJSON(data);
-                    return messages.concat();
-                }
-            }).fail(function (xhr) {
-                console.log('error', xhr);
-            });
+        $.ajax({
+            url: "/phpCRUID/list.php",
+            type: 'POST',
+            dataType: 'text',
+            async: false
+        }).done(function (data) {
+            if (data.length > 0) {
+                messages = $.parseJSON(data);
+            }
+        }).fail(function () {
+            console.log("error");
         });
-        promice.then(function (value) {
-            return value; // Успех!
-        }, function (reason) {
-            console.log(reason); // Ошибка!
-        });
+        return messages.concat();
     },
 
     subscribe: function subscribe(callback) {

@@ -1,5 +1,4 @@
 var EventEmitter = require('events').EventEmitter;
-import loading from './LoadingComponent';
 
 var emitter = new EventEmitter();
 
@@ -13,7 +12,7 @@ module.exports = {
             dataType:'text',
             async: false,
         })
-        .done(function() {
+        .done(function(data) {
             if(data.length > 0){
                 messages = $.parseJSON(data);
             }
