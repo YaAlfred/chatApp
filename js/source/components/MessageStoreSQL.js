@@ -1,30 +1,23 @@
-'use strict';
-
 var EventEmitter = require('events').EventEmitter;
-var sqlite = require('sqlite3').verbose();
-
-var db = new sqlite3.Database('../data.db');
 
 var emitter = new EventEmitter();
 
-//var messages = [];
-db.serialize(function() {
-    db.run("CREATE TABLE IF NOT EXISTS messages (message TEXT)");
-});
-db.close();
-
-var MessageStore = React.createClass({
-
+module.exports = {
     getMessages: function() {
-        let messages = []
-        let db = new sqlite3.Database('../data.db');
-        db.serialize(function() {
-            db.each("SELECT rowid AS id, message FROM messages", function(err, row) {
-                console.log(row.id + ": " + row.message);
-                messages.push(row.message)
-            });
+        let messages = [];
+        $.ajax({
+            url: "/phpCRUID/list.php",
+            type: 'POST',
+            dataType:'text',
+            success: function(data) {
+                //console.log('get list' + data);
+                if(data.length > 0){
+                    messages = $.parseJSON(data);
+                    return messages.concat();
+                }
+           },
+           async: false,
         });
-        db.close();
         return messages.concat();
     },
 
@@ -36,20 +29,18 @@ var MessageStore = React.createClass({
         emitter.removeListener('update', callback);
     },
 
-    newMessage: function(message) {
-        let db = new sqlite3.Database('../data.db');
-        db.serialize(function() {
-            var stmt = db.prepare("INSERT INTO messages VALUES (?)");
-            for (var i = 0; i < 10; i++) {
-                stmt.run("Ipsum " + i);
-            }
-            stmt.finalize();
+    newMessage: function(message, name) {
+        $.ajax({
+            type: 'POST',
+            url: '/phpCRUID/additem.php',
+            data: {"message": message, "author": name}
+        })
+        .done(function(data) {
+            console.log('success: ' + data);
+        })
+        .fail(function(jqXhr) {
+            console.log('failed to register');
         });
-        db.close();
-        messages.push(message);
-
         emitter.emit('update');
     }
-});
-
-module.exports = MessageStore;
+};

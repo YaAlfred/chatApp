@@ -1,12 +1,16 @@
 var React = require('react');
 
 import { ChatList, ChatBox } from './ChatBox';
-import MessageStore from './MessageStore';
+import MessageStore from './MessageStoreSQL';
 
 var Chat = React.createClass({
+
     getInitialState: function() {
+        let enterName =  prompt('Please enter your name');
+        let getLastMessages = MessageStore.getMessages();
         return {
-            messages: MessageStore.getMessages()
+            messages: getLastMessages,
+            author: enterName
         };
     },
 
@@ -25,7 +29,7 @@ var Chat = React.createClass({
     },
 
     onSend: function(newMessage) {
-        MessageStore.newMessage(newMessage);
+        MessageStore.newMessage(newMessage, this.state.author);
     },
 
     render: function() {

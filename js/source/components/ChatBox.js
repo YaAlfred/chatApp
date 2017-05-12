@@ -30,7 +30,7 @@ var ChatBox = React.createClass({
         return (
             <form onSubmit={this.handleSubmit}>
                 <label>
-                    <input value={this.state.input} onChange={this.updateInput} type="text" placeholder="Write your message here" />
+                    <input className="shout_box" value={this.state.input} onChange={this.updateInput} type="text" placeholder="Write your message here" />
                 </label>
                 <input type="submit" value="Submit" />
             </form>

@@ -1,3 +1,4 @@
+//This is just imitation
 var EventEmitter = require('events').EventEmitter;
 
 var emitter = new EventEmitter();

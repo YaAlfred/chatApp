@@ -8,7 +8,7 @@ import Chat from './components/Chat';
 let contact = (
     <div>
         <h1>
-            <Logo /> Welcome to The Chat App!
+            <Logo /> Welcome to our Chat App!
         </h1>
         <Chat />
     </div>

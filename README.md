@@ -1,4 +1,5 @@
 ----Simple chat application---
+upadated to use with php/sqlite library
 
 - install npm modules:
 npm update
