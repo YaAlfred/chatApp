@@ -689,21 +689,26 @@ var emitter = new EventEmitter();
 
 module.exports = {
     getMessages: function getMessages() {
-        var messages = [];
-        $.ajax({
-            url: "/phpCRUID/list.php",
-            type: 'POST',
-            dataType: 'text',
-            success: function success(data) {
-                //console.log('get list' + data);
+        var promice = new Promise(function (resolve, reject) {
+            $.ajax({
+                url: "/phpCRUID/list.php",
+                type: 'POST',
+                dataType: 'text',
+                async: false
+            }).done(function (data) {
                 if (data.length > 0) {
-                    messages = $.parseJSON(data);
+                    var messages = $.parseJSON(data);
                     return messages.concat();
                 }
-            },
-            async: false
+            }).fail(function (xhr) {
+                console.log('error', xhr);
+            });
         });
-        return messages.concat();
+        promice.then(function (value) {
+            return value; // Успех!
+        }, function (reason) {
+            console.log(reason); // Ошибка!
+        });
     },
 
     subscribe: function subscribe(callback) {

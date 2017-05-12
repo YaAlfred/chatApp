@@ -1,10 +1,12 @@
 var EventEmitter = require('events').EventEmitter;
+import loading from './LoadingComponent';
 
 var emitter = new EventEmitter();
 
+var messages = [];
+
 module.exports = {
     getMessages: function() {
-        let messages = [];
         $.ajax({
             url: "/phpCRUID/list.php",
             type: 'POST',
@@ -15,8 +17,7 @@ module.exports = {
                     messages = $.parseJSON(data);
                     return messages.concat();
                 }
-           },
-           async: false,
+           }
         });
         return messages.concat();
     },
