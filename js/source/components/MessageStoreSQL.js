@@ -18,7 +18,7 @@ module.exports = {
             }
         })
         .fail(function() {
-            console.log("error");
+            console.log("error 1");
         });
         return messages.concat();
     },
