@@ -21,7 +21,9 @@
   },
   "devDependencies": {
     "eslint": "3.19.0",
-    "eslint-plugin-react": "7.0.0"
+    "eslint-plugin-react": "7.0.0",
+    "browserify": "latest",
+    "babel":, "latest"
   },
   "dependencies": {
     "react": "^15.0.1",
