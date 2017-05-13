@@ -663,24 +663,39 @@ module.exports = {
     ChatMessage: ChatMessage
 };
 },{"react":187}],6:[function(require,module,exports){
-"use strict";
+'use strict';
 
-var _react = require("react");
+var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
+
+var _MessageStoreSQL = require('./MessageStoreSQL');
+
+var _MessageStoreSQL2 = _interopRequireDefault(_MessageStoreSQL);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Logo = _react2.default.createClass({
-    displayName: "Logo",
+    displayName: 'Logo',
+
+
+    clearChat: function clearChat(event) {
+        event.preventDefault();
+        _MessageStoreSQL2.default.clearChat();
+    },
 
     render: function render() {
-        return _react2.default.createElement("div", { className: "Logo" });
+        return _react2.default.createElement(
+            'div',
+            { className: 'header' },
+            _react2.default.createElement('div', { className: 'Logo' }),
+            _react2.default.createElement('input', { type: 'button', value: 'clearAll', onClick: this.clearChat })
+        );
     }
 });
 
 module.exports = Logo;
-},{"react":187}],7:[function(require,module,exports){
+},{"./MessageStoreSQL":7,"react":187}],7:[function(require,module,exports){
 'use strict';
 
 var EventEmitter = require('events').EventEmitter;
@@ -701,7 +716,7 @@ module.exports = {
                 messages = $.parseJSON(data);
             }
         }).fail(function () {
-            console.log("error");
+            console.log("error 1");
         });
         return messages.concat();
     },
@@ -723,6 +738,18 @@ module.exports = {
             console.log('success: ' + data);
         }).fail(function (jqXhr) {
             console.log('failed to register');
+        });
+        emitter.emit('update');
+    },
+
+    clearChat: function clearChat() {
+        $.ajax({
+            type: 'POST',
+            url: '/phpCRUID/deleteAll.php'
+        }).done(function (data) {
+            alert(data);
+        }).fail(function (jqXhr) {
+            console.log('failed to delete messages!');
         });
         emitter.emit('update');
     }

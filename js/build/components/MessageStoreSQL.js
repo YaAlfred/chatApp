@@ -18,7 +18,7 @@ module.exports = {
                 messages = $.parseJSON(data);
             }
         }).fail(function () {
-            console.log("error");
+            console.log("error 1");
         });
         return messages.concat();
     },
@@ -40,6 +40,18 @@ module.exports = {
             console.log('success: ' + data);
         }).fail(function (jqXhr) {
             console.log('failed to register');
+        });
+        emitter.emit('update');
+    },
+
+    clearChat: function clearChat() {
+        $.ajax({
+            type: 'POST',
+            url: '/phpCRUID/deleteAll.php'
+        }).done(function (data) {
+            alert(data);
+        }).fail(function (jqXhr) {
+            console.log('failed to delete messages!');
         });
         emitter.emit('update');
     }

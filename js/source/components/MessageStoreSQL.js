@@ -18,7 +18,7 @@ module.exports = {
             }
         })
         .fail(function() {
-            console.log("error 1");
+            console.log("error");
         });
         return messages.concat();
     },
@@ -42,6 +42,20 @@ module.exports = {
         })
         .fail(function(jqXhr) {
             console.log('failed to register');
+        });
+        emitter.emit('update');
+    },
+
+    clearChat:function(){
+        $.ajax({
+            type: 'POST',
+            url: '/phpCRUID/deleteAll.php'
+        })
+        .done(function(data) {
+            alert(data);
+        })
+        .fail(function(jqXhr) {
+            console.log('failed to delete messages!');
         });
         emitter.emit('update');
     }
